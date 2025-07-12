@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Forgot Password – HospiTrack</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Lexend:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+
+  <body class="bg-[#fcf8f8]" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <header class="flex items-center justify-between border-b border-[#f3e7e8] px-10 py-3">
+        <div class="flex items-center gap-4 text-[#1b0e0e]">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-[-0.015em]">HospiTrack</h2>
+        </div>
+      </header>
+
+      <!-- Forgot Password Section -->
+      <main class="flex justify-center px-4 py-10 flex-1">
+        <form class="w-full max-w-[512px]">
+          <h2 class="text-center text-[28px] font-bold text-[#1b0e0e] pb-3 pt-4">Forgot Password</h2>
+          <p class="text-center text-[#5c4b4b] text-sm px-4 pb-4">
+            Enter your registered email address to receive a password reset link.
+          </p>
+
+          <!-- Email -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full rounded-xl border border-[#e7d0d1] bg-[#fcf8f8] p-[15px] h-14 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none"
+              required
+            />
+          </div>
+
+          <!-- Submit Button -->
+          <div class="px-4 py-3">
+            <button
+              type="submit"
+              class="w-full rounded-full h-12 bg-[#ea2832] text-white font-bold text-base tracking-[0.015em]"
+            >
+              Send Reset Link
+            </button>
+          </div>
+
+          <!-- Back to Login -->
+          <p class="text-sm text-center text-[#994d51] px-4 pb-3 pt-1">
+            Remember your password?
+            <a href="hos_login.html" class="underline font-semibold hover:text-[#e82630]">Go back to login</a>
+          </p>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HospiTrack</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Lexend:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body class="bg-[#fcf8f8] font-['Lexend','Noto Sans',sans-serif] min-h-screen flex flex-col">
+
+    <header class="flex items-center justify-between px-10 py-3 border-b border-[#f3e7e8]">
+      <div class="flex items-center gap-4 text-[#1b0e0f]">
+        <div class="w-5 h-5">
+          <svg viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4C25.78 14.22 33.78 22.22 44 24C33.78 25.78 25.78 33.78 24 44C22.22 33.78 14.22 25.78 4 24C14.22 22.22 22.22 14.22 24 4Z" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold">HospiTrack</h2>
+      </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center px-6 py-10">
+      <form id="roleForm" class="w-full max-w-md bg-white rounded-xl p-6 shadow-md">
+        <h2 class="text-2xl font-bold text-center mb-6 text-[#1b0e0f]">Choose your role</h2>
+
+        <div class="flex flex-col gap-4">
+          <label class="flex items-center gap-3 border px-4 py-2 rounded-lg cursor-pointer border-[#e7d0d1] hover:border-[#e82630]">
+            <input type="radio" name="role" value="user" class="accent-[#e82630]" />
+            <span>User</span>
+          </label>
+          <label class="flex items-center gap-3 border px-4 py-2 rounded-lg cursor-pointer border-[#e7d0d1] hover:border-[#e82630]">
+            <input type="radio" name="role" value="hospital" class="accent-[#e82630]" />
+            <span>Hospital</span>
+          </label>
+          
+        </div>
+
+        <button
+          type="submit"
+          class="w-full mt-6 bg-[#e82630] text-white font-bold py-3 rounded-full hover:bg-[#c71e29] transition-all"
+        >
+          Continue
+        </button>
+      </form>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("roleForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+          const role = document.querySelector('input[name="role"]:checked');
+          if (!role) {
+            alert("Please select a role");
+            return;
+          }
+
+          if (role.value === "user") {
+            window.location.href = "slide3.html";
+          
+          } else if (role.value === "hospital") {
+            window.location.href = "hos_signin.html";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

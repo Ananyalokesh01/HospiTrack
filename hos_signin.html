@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hospital Sign Up – HospiTrack</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Lexend:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+
+  <body class="bg-[#fcf8f8]" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <header class="flex items-center justify-between border-b border-[#f3e7e8] px-10 py-3">
+        <div class="flex items-center gap-4 text-[#1b0e0e]">
+          <div class="size-4">
+            <!-- Logo SVG -->
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-[-0.015em]">HospiTrack</h2>
+        </div>
+      </header>
+
+      <!-- Form Section -->
+      <main class="flex justify-center px-4 py-10 flex-1">
+        <form id="signupForm" class="w-full max-w-[512px]">
+          <h2 class="text-center text-[28px] font-bold text-[#1b0e0e] pb-3">Hospital Sign Up</h2>
+
+          <!-- Hospital Name -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Hospital Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your hospital name"
+              required
+              class="w-full rounded-xl bg-[#f3e7e8] p-4 h-14 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none"
+            />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Enter your phone number"
+              required
+              class="w-full rounded-xl bg-[#f3e7e8] p-4 h-14 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none"
+            />
+          </div>
+
+          <!-- Email ID -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Email ID</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email ID"
+              required
+              class="w-full rounded-xl bg-[#f3e7e8] p-4 h-14 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none"
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Create Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Create a secure password"
+              required
+              class="w-full rounded-xl bg-[#f3e7e8] p-4 h-14 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none"
+            />
+          </div>
+
+          <!-- Address -->
+          <div class="px-4 py-3">
+            <label class="block text-base font-medium text-[#1b0e0e] pb-2">Address</label>
+            <textarea
+              name="address"
+              placeholder="Enter your hospital address"
+              required
+              class="w-full min-h-[144px] rounded-xl bg-[#f3e7e8] p-4 placeholder-[#994d51] text-[#1b0e0e] text-base focus:outline-none resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="px-4 py-3">
+            <button
+              type="submit"
+              class="w-full rounded-full h-12 bg-[#ea2832] text-white font-bold text-sm tracking-[0.015em]"
+            >
+              Sign Up
+            </button>
+          </div>
+
+          <!-- Message Output -->
+          <div id="message" class="text-center text-sm text-[#1b0e0e] font-medium py-2"></div>
+
+          <!-- Already have an account -->
+          <p class="text-center text-sm text-[#994d51] px-4 pb-3 pt-1">
+            Already have an account?
+            <a href="hos_login.html" class="underline font-semibold hover:text-[#e82630]">
+              login
+            </a>
+          </p>
+        </form>
+      </main>
+    </div>
+
+    <!-- ✅ Script -->
+    <script>
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      name: form.name.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      password: form.password.value,
+      address: form.address.value
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/hospital/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById('message').textContent = result.message;
+
+      // ✅ Redirect whether new signup or already registered
+      if (result.message === "Signup successful!") {
+  window.location.href = "hos_dash.html";
+} else if (result.message === "Hospital already registered") {
+  window.location.href = "hos_dash.html";
+}
+
+
+    } catch (err) {
+      console.error("Error during fetch:", err);
+      document.getElementById('message').textContent = "Something went wrong!";
+    }
+  });
+</script>
+
+  </body>
+</html>
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HospiTrack</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700;900&display=swap" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+  </head>
+  <body class="bg-[#fcf8f8]" style="font-family: Lexend, sans-serif">
+    <main class="flex justify-center p-6">
+      <form id="emergencyForm" class="bg-white p-6 rounded-lg shadow max-w-md w-full space-y-4">
+        <h2 class="text-xl font-bold">Report an Emergency</h2>
+        <input name="name" placeholder="Name" required class="w-full p-3 rounded bg-gray-100" />
+        <input name="phone" placeholder="Phone" required class="w-full p-3 rounded bg-gray-100" />
+        <input name="location" placeholder="Location" required class="w-full p-3 rounded bg-gray-100" />
+        <textarea name="description" placeholder="Description" required class="w-full p-3 rounded bg-gray-100"></textarea>
+        <button type="submit" class="w-full bg-red-600 text-white p-2 rounded">Submit</button>
+      </form>
+    </main>
+    <!-- Hospital Info Display -->
+    <div id="hospital-info" class="mt-8 mx-auto max-w-lg p-6 rounded-lg shadow bg-white hidden">
+      <h3 class="text-xl font-bold text-green-700 mb-2">✅ Hospital Assigned</h3>
+      <p><strong>Name:</strong> <span id="hospName"></span></p>
+      <p><strong>Phone:</strong> <span id="hospPhone"></span></p>
+      <p><strong>Address:</strong> <span id="hospAddress"></span></p>
+    </div>
+
+    <script>
+      const socket = io("http://localhost:5000");
+      console.log("✅ Connected to server");
+
+      document.getElementById("emergencyForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+        const data = Object.fromEntries(form.entries());
+
+        localStorage.setItem("userPhone", data.phone);
+        socket.emit("emergency-submitted", data);
+
+
+        alert("Emergency registered! ");
+        e.target.reset();
+      });
+
+      
+      
+
+
+
+      // ✅ Listen for hospital assignment
+      socket.on("hospital-accepted", (data) => {
+        console.log("📬 Received hospital info:", data);
+        
+        const hospital = data.hospital;
+        const userPhone = localStorage.getItem("userPhone");
+
+        console.log("📱 Current user phone:", userPhone);
+        console.log("📱 Response phone:", data.phone);
+        console.log("🏥 Hospital data:", hospital);
+
+        // Check if this response is for the current user
+        if (data.phone !== userPhone) {
+          console.log("📱 Response not for current user, ignoring");
+          return;
+        }
+
+        if (!hospital) {
+          console.warn("⚠️ Hospital info missing or malformed in response");
+          return;
+        }
+
+        console.log("✅ Displaying hospital info for user");
+        document.getElementById("hospital-info").classList.remove("hidden");
+        document.getElementById("hospName").innerText = hospital.name;
+        document.getElementById("hospPhone").innerText = hospital.phone;
+        document.getElementById("hospAddress").innerText = hospital.address;
+        
+        // Add a success message
+        alert("🎉 Hospital assigned! Check the information below.");
+      });
+
+    </script>
+  </body>
+</html>

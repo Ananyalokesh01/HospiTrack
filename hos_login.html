@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hospital Login | HospiTrack</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-gray-50 flex justify-center items-center h-screen font-sans">
+  <form id="loginForm" class="bg-white p-8 rounded shadow-md max-w-md w-full space-y-6">
+    <h2 class="text-2xl font-bold text-center">Hospital Login</h2>
+
+    <div>
+      <label class="block font-medium mb-1">Email</label>
+      <input type="email" name="email" required class="w-full border rounded px-4 py-2" />
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Password</label>
+      <input type="password" name="password" required class="w-full border rounded px-4 py-2" />
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      Login
+    </button>
+  </form>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      const data = Object.fromEntries(form.entries());
+
+      try {
+        const res = await fetch("http://localhost:5000/api/hospital/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem("hospitalEmail", data.email);
+          alert("Login successful!");
+          window.location.href = "hos_dash.html"; // redirect to dashboard
+        } else {
+          alert(result.message || "Login failed");
+        }
+      } catch (err) {
+        alert("Error logging in: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
