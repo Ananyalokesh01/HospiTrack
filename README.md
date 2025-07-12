@@ -1,1 +1,5 @@
-# HospiTrack
+In a medical emergency, when an ambulance arrives to transport a patient to a nearby hospital, there may be instances when there are no available beds or appropriate preparations for the situation. In such cases, the patient may need to be transferred to another hospital, which can pose a risk to their life during transit.
+
+To mitigate this risk, users can visit the HospiTrack website on their mobile devices. The homepage prompts users to select their role as either a patient or a hospital. After selecting a role, users are asked to enter their phone number, name, location, and a description of the emergency. The server then tracks their location using the provided phone number. Upon submission, users receive details about the nearest hospital that is prepared to accept the patient.
+
+On the hospital side, the facility needs to register by providing their hospital name, email, phone number, and address. When the patient approaches the hospital, the server sends an alert to verify if the hospital is ready to admit them, along with the patient's name, phone number, and emergency description. The hospital must then indicate whether they can accommodate the patient. If they select "available," the hospital's information is sent to the patient. If not, the server/website searches for another nearby hospital.
